@@ -133,7 +133,7 @@ function getSteps() {
 
 export default function App() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
     const [CSVData, setCSVData] = useState([]);
     const [CSVColumns, setCSVColumns] = useState([]);

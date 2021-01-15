@@ -107,7 +107,7 @@ const VerificationStep = (props: VerificationStepProps) => {
                         </p>
                     </>
             </Modal>
-            <h2>Verification of Data 2</h2>
+            <h2>Verification of Chosen Columns</h2>
             <p>
                 These are the desired columns I need as well as the name of the columns you said hold this info.
             </p>
