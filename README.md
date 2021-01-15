@@ -1,3 +1,13 @@
+# Aggie Awakening List Creator
+
+Howdy!
+
+Hopefully you find this app to be helpful in making the retreater lists.
+
+If you are reading this but are not a CS student or have knowledge of programming, I recommend finding someone with this knowledge as this can be confusing if you've gotten this far. If you can't find anyone, feel free to contact Nick Johnson (the last person to work on this project) at nickmj1999@gmail.com.
+
+This project was made with React and Typescript. I'm sure there are hidden bugs and bad practices throughout so if you'd like to make changes to the code, again, contact Nick Johnson (me) because I'd be happy to allow you to fix things, whoever you are.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
