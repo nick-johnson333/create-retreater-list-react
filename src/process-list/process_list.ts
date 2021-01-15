@@ -7,12 +7,6 @@ interface Applicant {
     is_graduating: boolean;
 };
 
-function pause(): void {
-    const prompt = require('prompt-sync')();
-
-    prompt('Press enter to continue');
-}
-
 function normalizeString(str: string): string {
     return str.toUpperCase().trim();
 }
@@ -101,7 +95,7 @@ function CSVToArray( strData: string): string[][] {
 
 function parseNumberOfTimesApplied(number_of_times_applied_string: string): number {
     let parsed = parseInt(number_of_times_applied_string);
-    if (parsed === NaN) {
+    if (isNaN(parsed)) {
         alert('An answer in the "How many times have you applied" question was not a number. Please fix this.');
         return 1;
     }
@@ -114,7 +108,7 @@ function getCurrentYear(): number {
 
 function parseClassYear(class_year_string: string): number {
     let parsed = parseInt(class_year_string);
-    if (parsed === NaN) {
+    if (isNaN(parsed)) {
         alert('An answer to the "What is your class year" question was not a number. Please fix this.');
         return getCurrentYear() + 10;
         // I return the current year plus 10 so if there is an error, the return won't affect an applicant's chances of being chosen.
@@ -295,7 +289,38 @@ const get_column_names = (csv_string: string): string[] => {
 
 }
 
-const process_list = (applicant_data_csv: string, // should be the full text of the csv
+const process_list_from_array = (applicant_data: string[][], // should be the full text of the csv
+    first_name_index: number, 
+    last_name_index: number, 
+    gender_index: number, 
+    times_applied_index: number, 
+    graduating_index: number, 
+    class_year_index: number): string[][][] => 
+{
+
+// parse the csv array data into a list of Applicant objects
+var applicants: Applicant[] = CSVDataToListOfApplicants(applicant_data,
+                                        first_name_index,
+                                        last_name_index,
+                                        gender_index,
+                                        times_applied_index,
+                                        graduating_index,
+                                        class_year_index);
+
+// split the applicant between men and women
+var {mens_list, womens_list} = splitListByGender(applicants);
+
+// duplicate the applicants in the list based on the number of times applied
+var men_with_duplicates: Applicant[] = duplicateApplicantsBasedOnTimesApplied(mens_list);
+var women_with_duplicates: Applicant[] = duplicateApplicantsBasedOnTimesApplied(womens_list);
+
+var final_mens_list: string[][] = createOrderedListOfApplicants(men_with_duplicates, applicant_data);
+var final_womens_list: string[][] = createOrderedListOfApplicants(women_with_duplicates,applicant_data);
+
+return [final_mens_list, final_womens_list];
+}
+
+const process_list_from_string = (applicant_data_csv: string, // should be the full text of the csv
                         first_name_index: number, 
                         last_name_index: number, 
                         gender_index: number, 
@@ -303,72 +328,55 @@ const process_list = (applicant_data_csv: string, // should be the full text of 
                         graduating_index: number, 
                         class_year_index: number): string[][][] => 
 {
-    // Split the applicant data into an array of array of strings
-    var applicant_data: string[][] = CSVToArray(applicant_data_csv);
+    return process_list_from_array(CSVToArray(applicant_data_csv),
+                                    first_name_index,
+                                    last_name_index,
+                                    gender_index,
+                                    times_applied_index,
+                                    graduating_index,
+                                    class_year_index);
     
-    // parse the csv array data into a list of Applicant objects
-    var applicants: Applicant[] = CSVDataToListOfApplicants(applicant_data,
-                                                            first_name_index,
-                                                            last_name_index,
-                                                            gender_index,
-                                                            times_applied_index,
-                                                            graduating_index,
-                                                            class_year_index);
-
-    // split the applicant between men and women
-    var {mens_list, womens_list} = splitListByGender(applicants);
-
-    // duplicate the applicants in the list based on the number of times applied
-    var men_with_duplicates: Applicant[] = duplicateApplicantsBasedOnTimesApplied(mens_list);
-    var women_with_duplicates: Applicant[] = duplicateApplicantsBasedOnTimesApplied(womens_list);
-
-    men_with_duplicates.forEach(man => {
-        console.log(man.first_name, man.last_name,man.times_applied);
-    })
-
-    var final_mens_list: string[][] = createOrderedListOfApplicants(men_with_duplicates, applicant_data);
-    var final_womens_list: string[][] = createOrderedListOfApplicants(women_with_duplicates,applicant_data);
-
-    return [final_mens_list, final_womens_list];
 }
 
-function print_selected(list: string[][]): void {
-    const dividing_line: string = '=============================';
 
-    console.log(dividing_line);
-    list.forEach(item => {
-        console.log(item[1] + ' ' + item[2]);
-    });
-    console.log('NUMBER: ' + list.length.toString());
-    console.log(dividing_line);
-}
 
-function test_process_list(): void {
-    var fs = require('fs');
+// function print_selected(list: string[][]): void {
+//     const dividing_line: string = '=============================';
 
-    try {
-        var data = fs.readFileSync('sample_applicants.csv', 'utf8');
-        var [mens_list, womens_list] = process_list(data,1,2,3,14,13,12);
-        print_selected(mens_list);
-        print_selected(womens_list);
-        console.log(mens_list);
-    } catch(e) {
-        console.log('Error:',e.stack);
-    }
-}
+//     console.log(dividing_line);
+//     list.forEach(item => {
+//         console.log(item[1] + ' ' + item[2]);
+//     });
+//     console.log('NUMBER: ' + list.length.toString());
+//     console.log(dividing_line);
+// }
 
-function test_get_column_names(): void {
-    var fs = require('fs');
+// function test_process_list(): void {
+//     var fs = require('fs');
 
-    try {
-        var data = fs.readFileSync('sample_applicants.csv', 'utf8');
-        var columns: string[] = get_column_names(data);
-        console.log(columns);
-    } catch(e) {
-        console.log('Error:',e.stack);
-    }
-}
+//     try {
+//         var data = fs.readFileSync('sample_applicants.csv', 'utf8');
+//         var [mens_list, womens_list] = process_list_from_string(data,1,2,3,14,13,12);
+//         print_selected(mens_list);
+//         print_selected(womens_list);
+//         console.log(mens_list);
+//     } catch(e) {
+//         console.log('Error:',e.stack);
+//     }
+// }
+
+// function test_get_column_names(): void {
+//     var fs = require('fs');
+
+//     try {
+//         var data = fs.readFileSync('sample_applicants.csv', 'utf8');
+//         var columns: string[] = get_column_names(data);
+//         console.log(columns);
+//     } catch(e) {
+//         console.log('Error:',e.stack);
+//     }
+// }
 
 //test_process_list(); // comment this when done testing
 //test_get_column_names(); // uncomment this to test
-export default {process_list, get_column_names}; // uncomment this when done testing
+export {process_list_from_string, process_list_from_array, get_column_names}; // uncomment this when done testing
