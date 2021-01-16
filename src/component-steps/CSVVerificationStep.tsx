@@ -1,11 +1,11 @@
 import React from 'react';
 import "../App.css";
 
-interface Step3Props {
+interface CSVVerificationStepProps {
     data_columns: string[]
 };
 
-const Step3 = ({data_columns}: Step3Props) => {
+const CSVVerificationStep = ({data_columns}: CSVVerificationStepProps) => {
     return (
         <>
             <h2>Verification of Data</h2>
@@ -24,4 +24,4 @@ const Step3 = ({data_columns}: Step3Props) => {
         </>
     )
 };
-export default Step3;
+export default CSVVerificationStep;

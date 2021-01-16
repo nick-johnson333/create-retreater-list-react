@@ -1,7 +1,7 @@
 import React from 'react';
 import CSVReader from 'react-csv-reader';
 
-interface Step2Props {
+interface CSVUploadStepProps {
     functionLoadedCallback: (data: string[][]) => void;
 };
 
@@ -17,7 +17,7 @@ const objectToStringArrayOfArrays = (original_data: any): string[][] => {
     return new_data;
 };
 
-const Step2 = ({functionLoadedCallback}: Step2Props) => {
+const CSVUploadStep = ({functionLoadedCallback}: CSVUploadStepProps) => {
 
     const onCSVLoaded = (data: any, _: object) => {
         var retyped_data: string[][] = objectToStringArrayOfArrays(data);
@@ -34,4 +34,4 @@ const Step2 = ({functionLoadedCallback}: Step2Props) => {
 };
 //<input type="file" name="file" onChange={onFileChange}/>
 
-export default Step2;
+export default CSVUploadStep;

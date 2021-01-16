@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import "../App.css";
 
-interface Step7Props {
+interface GetGenderStepProps {
     data_columns: string[],
-    setTimesAppliedCallback: (value: number) => void;
+    setGenderCallback: (value: number) => void;
     disableButtonCallback: () => void;
 }
 
-const Step7 = ({data_columns, setTimesAppliedCallback, disableButtonCallback}: Step7Props) => {
+const GetGenderStep = ({data_columns, setGenderCallback, disableButtonCallback}: GetGenderStepProps) => {
     const [selectedColumn, setSelectedColumn] = useState('');
 
     const handleChange = (event: any) => {
@@ -16,7 +16,7 @@ const Step7 = ({data_columns, setTimesAppliedCallback, disableButtonCallback}: S
         setSelectedColumn(value);
 
         if (value !== '') {
-            setTimesAppliedCallback(value);
+            setGenderCallback(value);
         } else {
             disableButtonCallback();
         }
@@ -24,13 +24,13 @@ const Step7 = ({data_columns, setTimesAppliedCallback, disableButtonCallback}: S
 
     return (
         <>
-            <h2>Choose the "How many Times have you Applied" Column</h2>
+            <h2>Choose the "Gender" Column</h2>
             <p>
-                Please select the column from your file that is an equivalent to "How many times have you applied" or holds applicants'
-                number of times applied in the file.
+                Please select the column from your file that is an equivalent to "Gender" or holds applicants'
+                genders in the file.
             </p>
             <p>
-                If you can't find the column, please look back at the spreadsheet and find where the applicants' times applied
+                If you can't find the column, please look back at the spreadsheet and find where the applicants' genders
                 are located.
             </p>
             <div className="select-box">
@@ -51,4 +51,4 @@ const Step7 = ({data_columns, setTimesAppliedCallback, disableButtonCallback}: S
         </>
     )
 };
-export default Step7;
+export default GetGenderStep;

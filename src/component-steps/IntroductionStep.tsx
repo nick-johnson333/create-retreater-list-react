@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Step0 = () => {
+const IntroductionStep = () => {
 
     return (
         <>
@@ -17,4 +17,4 @@ const Step0 = () => {
     );
 }
 
-export default Step0;
+export default IntroductionStep;

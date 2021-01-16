@@ -11,18 +11,18 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {
-  Step0 as IntroductionStep,
-  Step1 as DownloadStep,
-  Step2 as UploadStep,
-  Step3 as VerifyStep,
-  Step4 as GetFirstNameStep,
-  Step5 as GetLastNameStep,
-  Step6 as GetGenderStep,
-  Step7 as GetTimesAppliedStep,
-  Step8 as GetGraduatingStep,
-  Step9 as GetClassYearStep,
+  IntroductionStep,
   InstructionStep,
-  VerificationStep,
+  CSVDownloadStep,
+  CSVUploadStep,
+  CSVVerificationStep,
+  GetFirstNameStep,
+  GetLastNameStep,
+  GetGenderStep,
+  GetTimesAppliedStep,
+  GetGraduatingStep,
+  GetClassYearStep,
+  SelectionVerificationStep,
   ProcessAndDownloadStep,
 } from './component-steps';
 
@@ -244,11 +244,11 @@ export default function App() {
             case 1:
                 return <InstructionStep/>;
             case 2:
-                return <DownloadStep/>;
+                return <CSVDownloadStep/>;
             case 3:
-                return <UploadStep functionLoadedCallback={loadCSVData}/>;
+                return <CSVUploadStep functionLoadedCallback={loadCSVData}/>;
             case 4:
-                return <VerifyStep data_columns={CSVColumns}/>;
+                return <CSVVerificationStep data_columns={CSVColumns}/>;
             case 5:
                 return <GetFirstNameStep data_columns={CSVColumns} setFirstNameCallback={setFirstNameIndexCallback} disableButtonCallback={() => {setButtonDisabled(true);}}/>;
             case 6:
@@ -262,7 +262,7 @@ export default function App() {
             case 10:
                 return <GetClassYearStep data_columns={CSVColumns} setClassYearCallback={setClassYearIndexCallback} disableButtonCallback={() => {setButtonDisabled(true);}}/>;
             case 11:
-                return <VerificationStep resetCallback={handleReset} data_columns={CSVColumns} first_name_index={firstNameIndex} last_name_index={lastNameIndex} gender_index={genderIndex} times_applied_index={timesAppliedIndex} is_graduating_index={isGraduatingIndex} class_year_props={classYearIndex}/>;
+                return <SelectionVerificationStep resetCallback={handleReset} data_columns={CSVColumns} first_name_index={firstNameIndex} last_name_index={lastNameIndex} gender_index={genderIndex} times_applied_index={timesAppliedIndex} is_graduating_index={isGraduatingIndex} class_year_props={classYearIndex}/>;
             default:
                 return 'Unknown step';
         }
@@ -307,6 +307,9 @@ export default function App() {
               </div>
             )}
           </div>
+        </div>
+        <div id="source-code-link">
+            <a href="https://github.com/nick-johnson333/create-retreater-list-react" >Source Code for App</a>
         </div>
     </div>
   );

@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import "../App.css";
 
-interface Step4Props {
+interface GetClassYearStepProps {
     data_columns: string[],
-    setFirstNameCallback: (value: number) => void;
+    setClassYearCallback: (value: number) => void;
     disableButtonCallback: () => void;
 }
 
-const Step4 = ({data_columns, setFirstNameCallback, disableButtonCallback}: Step4Props) => {
+const GetClassYearStep = ({data_columns, setClassYearCallback, disableButtonCallback}: GetClassYearStepProps) => {
     const [selectedColumn, setSelectedColumn] = useState('');
 
     const handleChange = (event: any) => {
@@ -16,7 +16,7 @@ const Step4 = ({data_columns, setFirstNameCallback, disableButtonCallback}: Step
         setSelectedColumn(value);
 
         if (value !== '') {
-            setFirstNameCallback(value);
+            setClassYearCallback(value);
         } else {
             disableButtonCallback();
         }
@@ -24,14 +24,14 @@ const Step4 = ({data_columns, setFirstNameCallback, disableButtonCallback}: Step
 
     return (
         <>
-            <h2>Choose the "First Name" Column</h2>
+            <h2>Choose the "What is your class year" Column</h2>
             <p>
-                Please select the column from your file that is an equivalent to "First Name" or holds applicants'
-                first names in the file.
+                Please select the column from your file that is an equivalent to "What is your class year" or holds applicants'
+                class year in the file.
             </p>
             <p>
-                If you can't find the column, please look back at the spreadsheet and find where the applicants' first
-                names are located.
+                If you can't find the column, please look back at the spreadsheet and find where the applicants' class year
+                are located.
             </p>
             <div className="select-box">
                 <Select
@@ -51,4 +51,4 @@ const Step4 = ({data_columns, setFirstNameCallback, disableButtonCallback}: Step
         </>
     )
 };
-export default Step4;
+export default GetClassYearStep;

@@ -78,7 +78,7 @@ const VerificationTable = ({data_columns,
     
 }
 
-const VerificationStep = (props: VerificationStepProps) => {
+const SelectionVerificationStep = (props: VerificationStepProps) => {
 
     const [openAlert, setOpenAlert] = useState(false);
 
@@ -119,4 +119,4 @@ const VerificationStep = (props: VerificationStepProps) => {
         </>
     )
 };
-export default VerificationStep;
+export default SelectionVerificationStep;

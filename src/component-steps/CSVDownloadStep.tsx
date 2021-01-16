@@ -4,7 +4,7 @@ import DownloadImage1 from './csv-download-images/download-1.png';
 import "../App.css";
 
 
-const Step1 = () => {
+const CSVDownloadStep = () => {
     
     return (
         <>
@@ -23,4 +23,4 @@ const Step1 = () => {
         </>
     )
 };
-export default Step1;
+export default CSVDownloadStep;

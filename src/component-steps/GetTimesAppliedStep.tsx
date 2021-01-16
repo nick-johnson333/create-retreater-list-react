@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import "../App.css";
 
-interface Step5Props {
+interface GetTimesAppliedStepProps {
     data_columns: string[],
-    setLastNameCallback: (value: number) => void;
+    setTimesAppliedCallback: (value: number) => void;
     disableButtonCallback: () => void;
 }
 
-const Step5 = ({data_columns, setLastNameCallback, disableButtonCallback}: Step5Props) => {
+const GetTimesAppliedStep = ({data_columns, setTimesAppliedCallback, disableButtonCallback}: GetTimesAppliedStepProps) => {
     const [selectedColumn, setSelectedColumn] = useState('');
 
     const handleChange = (event: any) => {
@@ -16,7 +16,7 @@ const Step5 = ({data_columns, setLastNameCallback, disableButtonCallback}: Step5
         setSelectedColumn(value);
 
         if (value !== '') {
-            setLastNameCallback(value);
+            setTimesAppliedCallback(value);
         } else {
             disableButtonCallback();
         }
@@ -24,14 +24,14 @@ const Step5 = ({data_columns, setLastNameCallback, disableButtonCallback}: Step5
 
     return (
         <>
-            <h2>Choose the "Last Name" Column</h2>
+            <h2>Choose the "How many Times have you Applied" Column</h2>
             <p>
-                Please select the column from your file that is an equivalent to "Last Name" or holds applicants'
-                last names in the file.
+                Please select the column from your file that is an equivalent to "How many times have you applied" or holds applicants'
+                number of times applied in the file.
             </p>
             <p>
-                If you can't find the column, please look back at the spreadsheet and find where the applicants' last
-                names are located.
+                If you can't find the column, please look back at the spreadsheet and find where the applicants' times applied
+                are located.
             </p>
             <div className="select-box">
                 <Select
@@ -51,4 +51,4 @@ const Step5 = ({data_columns, setLastNameCallback, disableButtonCallback}: Step5
         </>
     )
 };
-export default Step5;
+export default GetTimesAppliedStep;

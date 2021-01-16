@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import "../App.css";
 
-interface Step8Props {
+interface GetGraduatingStepProps {
     data_columns: string[],
     setGraduatingCallback: (value: number) => void;
     disableButtonCallback: () => void;
 }
 
-const Step8 = ({data_columns, setGraduatingCallback, disableButtonCallback}: Step8Props) => {
+const GetGraduatingStep = ({data_columns, setGraduatingCallback, disableButtonCallback}: GetGraduatingStepProps) => {
     const [selectedColumn, setSelectedColumn] = useState('');
 
     const handleChange = (event: any) => {
@@ -51,4 +51,4 @@ const Step8 = ({data_columns, setGraduatingCallback, disableButtonCallback}: Ste
         </>
     )
 };
-export default Step8;
+export default GetGraduatingStep;
